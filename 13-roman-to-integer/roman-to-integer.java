@@ -1,27 +1,25 @@
 class Solution {
     public int romanToInt(String s) {
-        int answer = 0, number = 0, pre = 0;
+        int ans = 0;
 
-        for (int j = s.length() - 1; j >= 0; j--) {
-            switch (s.charAt(j)) {
-                case 'M' -> number = 1000;
-                case 'D' -> number = 500;
-                case 'C' -> number = 100;
-                case 'L' -> number = 50;
-                case 'X' -> number = 10;
-                case 'V' -> number = 5;
-                case 'I' -> number = 1;
-            }
-
-            if (number < pre) {
-                answer -= number;
+        for (int i = 0; i < s.length(); i++) {
+            if (i + 1 < s.length() && value(s.charAt(i)) < value(s.charAt(i + 1))) {
+                ans -= value(s.charAt(i));
             } else {
-                answer += number;
+                ans += value(s.charAt(i));
             }
-
-            pre = number;
         }
 
-        return answer;
+        return ans;
+    }
+
+    int value(char c) {
+        if (c == 'I') return 1;
+        if (c == 'V') return 5;
+        if (c == 'X') return 10;
+        if (c == 'L') return 50;
+        if (c == 'C') return 100;
+        if (c == 'D') return 500;
+        return 1000;
     }
 }
